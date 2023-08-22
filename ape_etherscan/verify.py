@@ -195,11 +195,10 @@ class SourceVerifier(ManagerAccessMixin):
                 f"Failed to find to deploy receipt for '{self.address}'"
             )
 
-        runtime_bytecode = self._contract_type.runtime_bytecode
-        bytecode_len = 0
-        if runtime_bytecode:
+        if runtime_bytecode := self._contract_type.runtime_bytecode:
             bytecode_len = len(runtime_bytecode.bytecode or "")
-
+        else:
+            bytecode_len = 0
         start_index = bytecode_len
         return deploy_receipt["input"][start_index:]
 

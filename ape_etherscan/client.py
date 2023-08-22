@@ -242,12 +242,9 @@ class ContractClient(_APIClient):
             "sourceCode": StringIO(json.dumps(standard_json_output)),
         }
 
-        iterator = 1
-        for lib_address, lib_name in libraries.items():
+        for iterator, (lib_address, lib_name) in enumerate(libraries.items(), start=1):
             json_dict[f"libraryname{iterator}"] = lib_name
             json_dict[f"libraryaddress{iterator}"] = lib_address
-            iterator += 1
-
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         return str(self._post(json_dict=json_dict, headers=headers).value)
 
